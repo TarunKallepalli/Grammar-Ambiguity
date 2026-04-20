@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grammar Ambiguity Detector & Visualizer — Analyze context-free grammars for ambiguity by generating and visualizing multiple parse trees with step-by-step derivations.">
+    <title>Grammar Ambiguity Detector & Visualizer</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+</head>
+<body>
+    <div class="app">
+        <!-- ======== HEADER ======== -->
+        <header class="header">
+            <div class="header-icon">🌳</div>
+            <h1>Grammar Ambiguity Detector<br>& Visualizer</h1>
+            <p>Analyze context-free grammars for ambiguity by generating and comparing multiple parse trees with step-by-step derivations.</p>
+        </header>
+
+        <!-- ======== INPUT SECTION ======== -->
+        <section class="input-section">
+            <!-- Grammar Input Card -->
+            <div class="card" id="grammarCard">
+                <div class="card-title">
+                    <span class="icon purple">📝</span>
+                    Grammar Rules (CFG)
+                </div>
+                <label class="input-label" for="grammarInput">Enter production rules</label>
+                <textarea 
+                    id="grammarInput" 
+                    placeholder="E -> E + E | E * E | id&#10;&#10;Use spaces between symbols.&#10;Use | to separate alternatives.&#10;Use -> for production arrows."
+                    spellcheck="false"
+                    rows="6"
+                ></textarea>
+                <p class="input-hint">💡 Separate symbols with spaces. First rule's LHS is the start symbol.</p>
+                
+                <div class="examples-section">
+                    <div class="examples-label">📌 Predefined Examples</div>
+                    <div class="examples-grid" id="examplesGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- String Input Card -->
+            <div class="card" id="stringCard">
+                <div class="card-title">
+                    <span class="icon cyan">📥</span>
+                    Input String
+                </div>
+                <label class="input-label" for="stringInput">Enter string to parse</label>
+                <input 
+                    type="text" 
+                    id="stringInput" 
+                    placeholder="id + id * id"
+                    spellcheck="false"
+                    autocomplete="off"
+                >
+                <p class="input-hint">💡 Separate tokens with spaces, matching grammar terminals.</p>
+                
+                <div class="analyze-section">
+                    <button class="btn btn-primary" id="analyzeBtn" onclick="analyze()">
+                        🔍 Analyze Grammar
+                    </button>
+                </div>
+
+                <!-- Grammar Info (shown after analysis) -->
+                <div id="grammarInfoInline" class="hidden" style="margin-top: 20px;">
+                    <div class="card-title" style="margin-bottom:12px;">
+                        <span class="icon green">📊</span>
+                        Grammar Info
+                    </div>
+                    <div id="grammarInfoContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== OUTPUT AREA ======== -->
+        <div class="output-area" id="outputArea">
+            <!-- Placeholder when no analysis has been run -->
+            <div class="output-placeholder" id="outputPlaceholder">
+                <div class="placeholder-icon">🔍</div>
+                <p>Enter a grammar and input string, then click <strong>"Analyze Grammar"</strong> to detect ambiguity and visualize parse trees.</p>
+            </div>
+
+            <!-- Result Banner -->
+            <section class="result-section hidden" id="resultSection">
+                <div class="result-banner" id="resultBanner">
+                    <span class="result-icon" id="resultIcon"></span>
+                    <div class="result-text">
+                        <div class="result-label" id="resultLabel"></div>
+                        <div class="result-desc" id="resultDesc"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grammar Info Chips -->
+            <div class="grammar-info hidden" id="grammarInfoSection">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Parse Trees -->
+            <section class="trees-section hidden" id="treesSection">
+                <div class="section-title">🌳 Parse Trees</div>
+                <div class="trees-grid" id="treesGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Derivations -->
+            <section class="derivation-section hidden" id="derivationSection">
+                <div class="section-title">📋 Step-by-Step Derivations</div>
+                <div class="derivation-tabs" id="derivationTabs">
+                    <button class="btn btn-tab active" data-type="leftmost" onclick="switchDerivationType('leftmost')">
+                        ← Leftmost Derivation
+                    </button>
+                    <button class="btn btn-tab" data-type="rightmost" onclick="switchDerivationType('rightmost')">
+                        Rightmost Derivation →
+                    </button>
+                </div>
+                <div class="derivation-grid" id="derivationGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ======== FOOTER ======== -->
+        <footer class="footer">
+            <p>Grammar Ambiguity Detector & Visualizer — Theory of Computation</p>
+        </footer>
+    </div>
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
