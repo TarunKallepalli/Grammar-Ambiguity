@@ -16,8 +16,6 @@
 - [How It Works](#how-it-works)
 - [Tech Stack](#tech-stack)
 - [Contributing](#contributing)
-- [License](#license)
-
 ---
 
 ## Overview
